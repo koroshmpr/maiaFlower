@@ -55,7 +55,7 @@
 					<?= WC()->cart->get_cart_contents_count() ?? '0'; ?>
 				</span>
 			</a>
-			<a href="/" class="<?= $class; ?> lg:hidden bg-flower/15 border-x border-flower/20 px-4 text-black/60">
+			<a href="<?= home_url('/'); ?>" class="<?= $class; ?> lg:hidden bg-flower/15 border-x border-flower/20 px-4 text-black/60">
 				<?php
 				$args = array(
 					'size' => '25',
@@ -64,7 +64,7 @@
 				get_template_part('template-parts/svg/home', null, $args);
 				?>
 			</a>
-			<a href="/compare" class="<?= $class; ?> relative" x-data="{ compareCount: 0 }" x-init="
+			<a href="<?= home_url('/compare'); ?>" class="<?= $class; ?> relative" x-data="{ compareCount: 0 }" x-init="
     				compareCount = JSON.parse(localStorage.getItem('compare_products') || '[]').length;">
 				<?php
 				$args = array(
