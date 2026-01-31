@@ -59,7 +59,7 @@ $total_grid_items = count($grid_images);
 			@click="openAt(0)"
 			src="<?= get_the_post_thumbnail_url(get_the_ID(), 'large'); ?>"
 			alt="<?= the_title_attribute(['echo' => false]); ?>"
-			class="object-cover w-full duration-500 aspect-square mb-1 overflow-hidden transition-all rounded-sm">
+			class="object-contain lg:object-cover w-full duration-500 aspect-video lg:aspect-square mb-1 overflow-hidden transition-all rounded-sm">
 
 		<div class="grid grid-cols-4 gap-1">
 			<?php
