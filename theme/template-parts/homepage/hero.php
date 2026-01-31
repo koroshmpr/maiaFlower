@@ -15,16 +15,16 @@
 			</div>
 			<h1 class="lg:text-4xl px-3 bg-gradient-to-t from-flower/40 border border-t-0 lg:pt-3 pb-1 border-white/50 xl:me-32 text-2xl"><?= $hero['subtitle'] ?? ''; ?></h1>
 			<a href="<?= $hero['button']['url'] ?? ''; ?>" aria-label="link to <?= $hero['button']['title'] ?? ''; ?>"
-			   class="px-5 font-bold flex gap-2 items-center group/add transition-all ease-in-out mt-10 lg:mt-4 bg-flower/50 lg:-mb-10 hover:bg-flower/60 hover:rounded-sm hover:ring-1 border shadow-lg backdrop-blur-sm ring-white duration-600 hover:scale-110 py-3"
+			   class="px-5 font-bold flex gap-2 items-center group/add transition-all ease-in-out mt-10 lg:mt-4 bg-flower/50 lg:-mb-10 hover:bg-flower/60 hover:rounded-sm hover:ring-1 border shadow-lg backdrop-blur-sm ring-white duration-700 hover:scale-110 py-3"
 			   :class="scrollingDown ? 'translate-y-12 px-24 py-4 lg:py-8 text-2xl' : (scrollingUp ? '' : '')">
 				<?php
 				$args = array(
 					'size' => '28',
-					'class' => 'group-hover/add:delay-100 pb-1 text-white duration-300 rotate-45 group-hover/add:rotate-0 translate-x-2 opacity-0 transition-all group-hover/add:opacity-100 group-hover/add:translate-x-0'
+					'class' => 'group-hover/add:delay-100 pb-1 text-white duration-700 rotate-45 group-hover/add:rotate-0 translate-x-2 opacity-0 transition-all group-hover/add:opacity-100 group-hover/add:translate-x-0'
 				);
 				get_template_part('template-parts/svg/shop',null,$args);
 				?>
-				<span class="group-hover/add:-translate-x-0 transition-all duration-300 translate-x-4"><?= $hero['button']['title'] ?? ''; ?></span>
+				<span class="group-hover/add:-translate-x-0 transition-all duration-700 translate-x-4"><?= $hero['button']['title'] ?? ''; ?></span>
 			</a>
 		</div>
 	</div>

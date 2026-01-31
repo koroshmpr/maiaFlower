@@ -29,7 +29,7 @@ $tdClass = 'border-b border-l border-black/5 py-3 px-2 font-thin flex items-cent
 	<template x-if="!loading && products.length === 0">
 		<div class="flex justify-center my-32 w-full flex-col h-[30vh] items-center gap-y-5">
 			<p class="text-gray-500 text-2xl">محصولی در لیست وجود ندارد</p>
-			<a aria-label="go to shop page" class="bg-icon px-12 py-3 rounded-md hover:brightness-90 transition-all" href="/shop">اضافه کنید</a>
+			<a aria-label="go to shop page" class="bg-icon px-12 py-3 rounded-md hover:brightness-90 transition-all" href="<?= get_permalink( wc_get_page_id( 'shop' ) ); ?>">اضافه کنید</a>
 		</div>
 	</template>
 
