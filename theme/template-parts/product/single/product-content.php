@@ -1,0 +1,108 @@
+<?php
+global $product;
+
+$args = array(
+	'post_type' => 'portfolio',
+	'meta_query' => array(array('key' => 'related_product', 'value' => get_the_id(), 'compare' => 'like'))
+);
+$related_portfolio = new WP_Query($args);
+$has_portfolio = $related_portfolio->have_posts();
+?>
+
+<div x-data="{ active: 'details' }"
+	 class="lg:col-span-12 xl:col-span-9 z-0 bg-white flex flex-col lg:py-8 max-lg:px-3 lg:pe-8 rtl" dir="rtl">
+
+	<nav class="sticky w-full <?= current_user_can('administrator') ? 'lg:top-24' : 'lg:top-16 '; ?> top-0 gap-x-2 flex border-b z-[10] bg-white border-black/10">
+		<?php
+		$btnClass = 'py-3 pl-2 text-sm cursor-pointer transition-all duration-300 font-bold';
+		$titleClass = 'border-b-2 w-fit font-bold py-2 my-4 border-flower/70';
+		$sectionCLass = 'border-b border-black/10 flex flex-col relative pb-5';
+		?>
+
+		<div
+			class="absolute bottom-0 h-0.5 bg-flower transition-all duration-300 ease-in-out"
+			:class="{
+              'right-0 w-[55px]': active === 'details',
+              'right-[65px] w-[90px]': active === 'gallery',
+              '<?= $has_portfolio ? 'right-[165px]' : 'right-[65px]'; ?> w-[45px]': active === 'comments'
+          }">
+		</div>
+
+		<button
+			@click.prevent="document.getElementById('details').scrollIntoView({behavior: 'smooth'})"
+			:class="active === 'details' ? 'text-flower' : 'text-gray-400 hover:text-gray-600'"
+			class="<?= $btnClass; ?>">
+			توضیحات
+		</button>
+
+		<?php if ($has_portfolio): ?>
+			<button
+				@click.prevent="document.getElementById('gallery').scrollIntoView({behavior: 'smooth'})"
+				:class="active === 'gallery' ? 'text-flower' : 'text-gray-400 hover:text-gray-600'"
+				class="<?= $btnClass; ?>">
+				عکس‌های شما
+			</button>
+		<?php endif; ?>
+
+		<button
+			@click.prevent="document.getElementById('comments-section').scrollIntoView({behavior: 'smooth'})"
+			:class="active === 'comments' ? 'text-flower' : 'text-gray-400 hover:text-gray-600'"
+			class="<?= $btnClass; ?>">
+			دیدگاه
+		</button>
+	</nav>
+
+	<div class="<?= $sectionCLass; ?>"
+		 x-data="{showMore : true}"
+		 id="details"
+		 x-intersect:enter.margin.-15%.0px.-70%.0px="active = 'details'">
+		<h2 class="<?= $titleClass; ?>">توضیحات</h2>
+		<article :class="showMore ? 'max-h-[150px]' : ''"
+				 class="prose prose-sm max-w-none h-fit duration-500 overflow-hidden text-justify transition-all leading-7">
+			<?php the_content() ?>
+		</article>
+
+		<div :class="showMore ? '' : 'hidden'"
+			 class="bg-gradient-to-t from-white/95 via-white/85 via-70% h-24 absolute bottom-0 w-full"></div>
+		<button
+			:class="showMore ? '-translate-y-1/2' : ' my-3 sticky bottom-32 lg:bottom-5'"
+			@click="showMore = !showMore"
+			class="bg-icon border flex items-center justify-center gap-1 text-sm z-0 border-icon transition-all cursor-pointer hover:brightness-105 rounded-sm px-16 lg:px-12 mx-auto py-1">
+          <span x-show="!showMore">
+             <?php get_template_part('template-parts/svg/close', null, ['class' => 'text-gray-700', 'size' => '15']); ?>
+          </span>
+			<span x-text="showMore ? 'بیشتر' : 'بستن'"></span>
+		</button>
+	</div>
+
+	<?php if ($has_portfolio): ?>
+		<div id="gallery"
+			 x-intersect:enter.margin.-15%.0px.-70%.0px="active = 'gallery'"
+			 class="<?= $sectionCLass; ?> py-6">
+			<h2 class="<?= $titleClass; ?>">عکس‌های شما</h2>
+
+			<div class="swiper post-slider !overflow-visible w-full"
+				 data-index="portfolios" data-perfix="portfolio" data-space="10"
+				 data-perpage="5.2" data-mobile="2.2" data-laptop="4.2" data-tablet="3.2" data-autoplay="0">
+				<div class="swiper-wrapper">
+					<?php while ($related_portfolio->have_posts()): $related_portfolio->the_post(); ?>
+						<div class="swiper-slide overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
+							<img class="object-cover w-full aspect-square"
+								 src="<?= get_the_post_thumbnail_url(get_the_ID(), 'medium') ?>" alt="<?php the_title(); ?>"/>
+						</div>
+					<?php endwhile; wp_reset_postdata(); ?>
+				</div>
+			</div>
+		</div>
+	<?php endif; ?>
+
+	<div id="comments-section"
+		 class="pt-8"
+		 x-intersect:enter.margin.-15%.0px.-70%.0px="active = 'comments'">
+		<?php
+		if (comments_open() || get_comments_number()) {
+			comments_template();
+		}
+		?>
+	</div>
+</div>

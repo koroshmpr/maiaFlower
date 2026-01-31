@@ -1,0 +1,67 @@
+/**
+ * Custom styles to immediately follow Tailwind’s `base` layer
+ */
+
+/**
+ * This uses the background and foreground colors declared in the `theme.json`
+ * file and is applied both to the front end and in the block editor.
+ */
+@import 'swiper/swiper-bundle.css';
+
+/* Define the style for the scrollbar thumb */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #585858;
+}
+
+::-webkit-scrollbar-track {
+	background: #191919;
+}
+
+.ltr {
+	direction: ltr;
+}
+
+.page-numbers {
+	@apply p-3 bg-foreground aspect-square text-white;
+
+	&.current {
+		@apply bg-white text-foreground
+	}
+}
+
+a {
+	@apply !no-underline;
+}
+
+* {
+	scroll-margin-top: 150px;
+	scroll-behavior: smooth;
+}
+
+
+.swiper-pagination-vertical {
+	@apply flex-col !w-4 !h-fit;
+
+	.swiper-pagination-bullet  {
+		@apply bg-white !h-2 !w-full transform !scale-100 !rounded-[1px] !m-0 opacity-100 !static !transition-all !duration-500;
+		&.swiper-pagination-bullet-active {
+			@apply bg-flower !h-6;
+		}
+	}
+}
+
+.swiper-pagination-horizontal {
+	@apply  !h-4 !w-fit;
+	.swiper-pagination-bullet {
+		@apply bg-white !w-2 !h-full transform !scale-100 !rounded-[1px] !m-0 opacity-100 !static !transition-all !duration-500;
+		&.swiper-pagination-bullet-active {
+			@apply bg-flower !w-6;
+		}
+	}
+}
+

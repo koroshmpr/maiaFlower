@@ -1,0 +1,31 @@
+<?php $hero = get_field('hero');
+?>
+<section class="relative overflow-hidden lg:h-[85vh] h-[50vh] lg:pb-16">
+	<div class="absolute bottom-0 inset-x-0 h-2/3 bg-gradient-to-t from-white from-20% via-white/30 via-40% z-1"></div>
+	<div class="container max-lg:w-full h-full relative">
+		<img width="390" height="374"
+			:class="scrollingDown ? 'scale-95' : (scrollingUp ? 'lg:scale-105 lg:mt-5' : '')"
+			class="absolute inset-0 w-full lg:h-[80vh] select-none h-[50vh] transition-all border border-y-0 px-1 border-black/5 lg:px-5 pb-0 duration-700 object-cover"
+			src="<?= $hero['image']['url'] ?? ''; ?>" alt="<?= $hero['image']['url'] ?? ''; ?>">
+		<div :class="scrollingDown ? 'lg:-translate-y-24 -translate-y-8 scale-85' : (scrollingUp ? 'scale-105' : '')"
+			 class="absolute duration-700 text-white transition-all bottom-20 lg:bottom-0 z-[2] w-full inset-x-0 flex flex-col items-center">
+			<div class="flex ltr items-center text-nowrap">
+				<p class="lg:text-9xl !leading-0 stroke-3 text-white stroke-gray-500 text-6xl"><?= $hero['title'] ?? ''; ?></p>
+				<p class="!leading-0 lg:text-6xl pb-4 text-xl font-thin text-flower/30 stroke-1 stroke-white border-b border-white"><?= $hero['adjectives'] ?? ''; ?></p>
+			</div>
+			<h1 class="lg:text-4xl px-3 bg-gradient-to-t from-flower/40 border border-t-0 lg:pt-3 pb-1 border-white/50 xl:me-32 text-2xl"><?= $hero['subtitle'] ?? ''; ?></h1>
+			<a href="<?= $hero['button']['url'] ?? ''; ?>" aria-label="link to <?= $hero['button']['title'] ?? ''; ?>"
+			   class="px-5 font-bold flex gap-2 items-center group/add transition-all ease-in-out mt-10 lg:mt-4 bg-flower/50 lg:-mb-10 hover:bg-flower/60 hover:rounded-sm hover:ring-1 border shadow-lg backdrop-blur-sm ring-white duration-600 hover:scale-110 py-3"
+			   :class="scrollingDown ? 'translate-y-12 px-24 py-4 lg:py-8 text-2xl' : (scrollingUp ? '' : '')">
+				<?php
+				$args = array(
+					'size' => '28',
+					'class' => 'group-hover/add:delay-100 pb-1 text-white duration-300 rotate-45 group-hover/add:rotate-0 translate-x-2 opacity-0 transition-all group-hover/add:opacity-100 group-hover/add:translate-x-0'
+				);
+				get_template_part('template-parts/svg/shop',null,$args);
+				?>
+				<span class="group-hover/add:-translate-x-0 transition-all duration-300 translate-x-4"><?= $hero['button']['title'] ?? ''; ?></span>
+			</a>
+		</div>
+	</div>
+</section>
